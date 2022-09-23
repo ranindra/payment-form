@@ -41,6 +41,8 @@ const DropshipperCheck = styled.div`
         position: absolute;
         img {
             padding-bottom: 3px;
+            left: 1px;
+            position: absolute;
         }
     }
     
@@ -60,7 +62,7 @@ function Header(props) {
             <Heading>
                 <span></span><h5>{props.heading}</h5>
             </Heading>
-            {props.dropshipperCheck ? <DropshipperCheck><div className="imgWrapper">{props.check ? <img src={check} alt="check" /> : null}</div><label>Send as dropshipper</label></DropshipperCheck> : null}
+            <DropshipperCheck><div onClick={props.onCheck}className="imgWrapper">{props.check ? <img src={check} alt="check" /> : null}</div><label>Send as dropshipper</label></DropshipperCheck>
         </HeaderWrap>
     )
 }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import styled from 'styled-components';
 
@@ -13,6 +13,9 @@ input{
     outline: none;
     font-family: 'InterBold';
     margin: 0 !important;
+    &:disabled {
+        opacity: 0.6;
+    }
     &#textarea {
         padding: 30px 15px 40px;
         &:focus {
@@ -84,7 +87,7 @@ const DropshipField = styled.div`
     `;
 
 
-function Delivery() {
+function Delivery(props) {
     const { register, handleSubmit, getValues, formState: { errors } } = useForm({ mode: "onChange" });
     const onSubmit = (data) => {
         console.log(data);
@@ -92,11 +95,11 @@ function Delivery() {
     const [addressCount, setAddressCount] = useState(0);
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form >
             <FormsStyle>
                 <Field>
                     <InputField
-                    // className={errors.email && "error"}
+                        className={errors.email && "error"}
                     >
                         <input
                             type="text"
@@ -104,6 +107,7 @@ function Delivery() {
                             {...register("email", {
                                 required: true,
                                 pattern: /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([a-zA-Z0-9-\\.]+)$/,
+                                keepValues: true
 
                             })}
                         />
@@ -133,28 +137,62 @@ function Delivery() {
 
                     <InputField className={errors.address && "error"}>
                         <input
-                            id='textarea'                            
+                            id='textarea'
                             type="textarea"
-                            placeholder=" " 
+                            placeholder=" "
                             {...register("address", {
                                 required: true,
                                 maxLength: 120,
-                                onChange:() => {
+                                onChange: () => {
                                     console.log(getValues("address").length);
                                     setAddressCount(getValues("address").length)
                                 }
                             })}
-                           
+
                         />
-                        <label id='textarea'>Address {addressCount <= 0 ? "" : " ("+(120-addressCount)+"/120)"}</label>
+                        <label id='textarea'>Address {addressCount <= 0 ? "" : " (" + (120 - addressCount) + "/120)"}</label>
                     </InputField>
                 </Field>
-                {/* <DropshipField>
-                    <Input placeHolder="Email Dropshipper" />
-                    <Input placeHolder="Phone Number Dropshipper" />
-                </DropshipField> */}
+                {props.disDropship ? 
+                <DropshipField>
+                    <InputField
+                        className={errors.emailds && "error"}
+                    >
+                        <input
+                            type="text"
+                            placeholder=" "
+                            {...register("emailds", {
+                                required: true,
+                                pattern: /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([a-zA-Z0-9-\\.]+)$/,
+
+                            })}
+                        />
+                        <label>Email Dropshipper</label>
+                    </InputField>
+
+                    <InputField className={errors.phoneds && "error"}>
+                        <input
+                            type="text"
+                            placeholder=" " {...register("phoneds", {
+                                required: {
+                                    value: true,
+                                },
+                                pattern: {
+                                    value: /^[0-9+-]+$/,
+                                },
+                                minLength: {
+                                    value: 6,
+                                },
+                                maxLength: {
+                                    value: 20,
+                                }
+                            })}
+                        />
+                        <label>Phone Number Dropshipper</label>
+                    </InputField>
+                </DropshipField> : null }
             </FormsStyle>
-            <button type='submit'>Submit</button>
+            <button type='submit' onClick={handleSubmit(onSubmit)}>Submit</button>
         </form>
     )
 }

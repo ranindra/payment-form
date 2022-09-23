@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
 
 const Section = styled.div`
     max-width: 1100px;
-    height: 550px;
+    min-height: 550px;
     position: relative;
     margin: 30px auto;
     background: #FFFFFF;
