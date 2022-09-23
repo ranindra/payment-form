@@ -1,10 +1,12 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import { createGlobalStyle } from "styled-components";
 import styled from 'styled-components';
 import Stepper from './components/Stepper/Stepper';
 import Step1 from './components/Layout/Step1';
+import Step2 from './components/Layout/Step2';
 
 const GlobalStyle = createGlobalStyle`
 .App {
@@ -27,16 +29,33 @@ const Section = styled.div`
 `;
 
 function App() {
+  const [stepNumber, setstepNumber] = useState(1);
   return (
     <div className="App">
       <GlobalStyle />
       <Stepper
-        step={1}
+        step={stepNumber}
       />
+      
+      <BrowserRouter>
       <Section>
-        <Step1/>
-
-      </Section>
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={<Step1 
+              linkClick="/payment"
+              btnClick={() => setstepNumber(2)}
+              />}
+          />
+          <Route
+            exact
+            path="/payment"
+            element={<Step2 btnBackClick={() => setstepNumber(1)}/>}
+          />
+        </Routes>
+        </Section>
+      </BrowserRouter>
     </div>
   );
 }

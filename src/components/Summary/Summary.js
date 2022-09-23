@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Swrapper = styled.div`
@@ -121,8 +122,8 @@ function Summary(props) {
                 <label id='costLabel'>Cost of goods <b>500,000</b></label>
                 {props.fee ? <label id='costLabel'>Dropshipping Fee <b>5,900</b></label> : null}
                 {props.shipment ? <label id='costLabel'>GO-SEND Shipment <b>15,000</b></label> : null}
-                <label id='totalCost'>Total <b>509,000</b></label>
-                <button id='totalBtn'>{props.btnLabel}</button>
+                <label id='totalCost'>Total <b>{props.total}</b></label>
+                <Link to={props.linkClick}><button id='totalBtn' onClick={props.btnClick}>{props.btnLabel}</button></Link>
             </section>
         </Swrapper>
     )

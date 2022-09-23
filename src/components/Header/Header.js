@@ -62,7 +62,9 @@ function Header(props) {
             <Heading>
                 <span></span><h5>{props.heading}</h5>
             </Heading>
+            {props.dropshipperCheck ? 
             <DropshipperCheck><div onClick={props.onCheck}className="imgWrapper">{props.check ? <img src={check} alt="check" /> : null}</div><label>Send as dropshipper</label></DropshipperCheck>
+            : null}
         </HeaderWrap>
     )
 }
