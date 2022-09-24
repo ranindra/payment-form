@@ -66,7 +66,7 @@ function Step1(props) {
                     btnLabel={"Continue to Payment"}
                     shipment={false}
                     total={(new Intl.NumberFormat().format(totalPay+feeDropship))}
-                    btnClick={props.btnClick}
+                    btnClick={()=>props.btnClick(drpCheck)}
                     linkClick={props.linkClick}
                 />
             </Asside>

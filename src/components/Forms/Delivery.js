@@ -95,7 +95,7 @@ function Delivery(props) {
     const [addressCount, setAddressCount] = useState(0);
 
     return (
-        <form >
+        <form onBlur={handleSubmit(onSubmit)}>
             <FormsStyle>
                 <Field>
                     <InputField
@@ -144,7 +144,7 @@ function Delivery(props) {
                                 required: true,
                                 maxLength: 120,
                                 onChange: () => {
-                                    console.log(getValues("address").length);
+                                    // console.log(getValues("address").length);
                                     setAddressCount(getValues("address").length)
                                 }
                             })}
@@ -192,7 +192,7 @@ function Delivery(props) {
                     </InputField>
                 </DropshipField> : null }
             </FormsStyle>
-            <button type='submit' onClick={handleSubmit(onSubmit)}>Submit</button>
+            {/* <button type='submit' onClick={handleSubmit(onSubmit)}>Submit</button> */}
         </form>
     )
 }

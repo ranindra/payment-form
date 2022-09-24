@@ -114,16 +114,30 @@ function Summary(props) {
             <label id='headers'>Summary</label>
             <label id='items'>10 items purchased</label>
             <label id='borderBr'></label>
+
             {props.shipment ? <>
-            <label id='estimations'>Delivery estimation</label>
-            <label id='ship'>today by GO-SEND</label>
+                <label id='estimations'>Delivery estimation</label>
+                <label id='ship'>{props.shipEstimate === 1 ? "today by GO-SEND" : props.shipEstimate === 2 ? "2 days by JNE" : "1 Day"}</label>
             </> : null}
+
+            {props.finishStep ?
+                <>
+                    <label id='borderBr'></label>
+                    <label id='estimations'>Payment Method</label>
+                    <label id='ship'>{props.paymentMethod}</label>
+                </>
+                :
+                <></>}
+
+
             <section id='total-payment'>
                 <label id='costLabel'>Cost of goods <b>500,000</b></label>
                 {props.fee ? <label id='costLabel'>Dropshipping Fee <b>5,900</b></label> : null}
-                {props.shipment ? <label id='costLabel'>GO-SEND Shipment <b>15,000</b></label> : null}
+                {props.shipment ? <label id='costLabel'>{props.shipmentType} shipment <b>{props.shipmentTotal}</b></label> : null}
                 <label id='totalCost'>Total <b>{props.total}</b></label>
-                <Link to={props.linkClick}><button id='totalBtn' onClick={props.btnClick}>{props.btnLabel}</button></Link>
+                {props.finishStep ? <></> :
+                    <Link to={props.linkClick}><button id='totalBtn' onClick={props.btnClick}>{props.btnLabel}</button></Link>
+                }
             </section>
         </Swrapper>
     )

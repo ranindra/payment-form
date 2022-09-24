@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import { createGlobalStyle } from "styled-components";
@@ -30,30 +30,52 @@ const Section = styled.div`
 
 function App() {
   const [stepNumber, setstepNumber] = useState(1);
+  const [feeDrp, setFeeDrp] = useState()
+
+  const onSetDropCheck = (formState) => {
+    // console.log(formState);
+    setFeeDrp(formState);
+    setstepNumber(2)
+  }
+
+  const onSetStep = (formState) => {
+    // console.log(formState);
+    // setFeeDrp(formState);
+    setstepNumber(formState)
+  }
+
   return (
     <div className="App">
       <GlobalStyle />
       <Stepper
         step={stepNumber}
       />
-      
+
       <BrowserRouter>
-      <Section>
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={<Step1 
-              linkClick="/payment"
-              btnClick={() => setstepNumber(2)}
+        <Section>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <Step1
+                  linkClick="/payment"
+                  btnClick={onSetDropCheck}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/payment"
+              element=
+              {<Step2
+                btnBackClick={() => setstepNumber(1)}
+                feeDropship={feeDrp}
+                btnClick={onSetStep}
+                finishStep={stepNumber === 3 ? true : false}
               />}
-          />
-          <Route
-            exact
-            path="/payment"
-            element={<Step2 btnBackClick={() => setstepNumber(1)}/>}
-          />
-        </Routes>
+            />
+          </Routes>
         </Section>
       </BrowserRouter>
     </div>
