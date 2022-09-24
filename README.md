@@ -1,5 +1,5 @@
 # payment-form
-3 step layouts for payment process
+3 step layouts for payment process with react hooks, react-hooks-form, styled-components.
 
 # Getting Started with Create React App
 
